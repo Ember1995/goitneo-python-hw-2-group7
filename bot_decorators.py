@@ -4,18 +4,8 @@ def input_error(func):
             return func(*args, **kwargs)
         except KeyError:
             return "Contact not found."
-        except Exception as e:
+        except (ValueError, IndexError) as e:
             return f"{str(e).capitalize()}"
-    return inner
-
-import re
-
-def validate_phone_format(func):
-    def inner(args, contacts):
-        name, phone = args
-        if not re.match(r'^\+\d[\d ()-]{7,14}$', phone):
-            raise ValueError("Invalid phone number format.")
-        return func(args, contacts)
     return inner
 
 def check_existing_contact(func):

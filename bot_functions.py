@@ -1,7 +1,6 @@
 from bot_decorators import *
 
 @input_error
-@validate_phone_format
 @check_existing_contact
 def add_contact(args, contacts):
     name, phone = args
@@ -9,7 +8,6 @@ def add_contact(args, contacts):
     return "Contact added."
 
 @input_error
-@validate_phone_format
 def change_contact(args, contacts):
     name, phone = args
     if name in contacts:
