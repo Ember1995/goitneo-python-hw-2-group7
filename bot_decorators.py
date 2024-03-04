@@ -8,11 +8,13 @@ def input_error(func):
             return f"{str(e).capitalize()}"
     return inner
 
+import re
+
 def validate_phone_format(func):
     def inner(args, contacts):
         name, phone = args
-        if not (8 <= len(phone) <= 15) or not phone.startswith('+'):
-            raise ValueError("The phone number must be between 8 and 15 characters long and start with '+'")
+        if not re.match(r'^\+\d[\d ()-]{7,14}$', phone):
+            raise ValueError("Invalid phone number format.")
         return func(args, contacts)
     return inner
 
